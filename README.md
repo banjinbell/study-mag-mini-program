@@ -150,9 +150,6 @@ npm run bench:tts           # TTS，输出到 fixtures/output/
 
 ## 文档
 
-- [`docs/MODELS.md`](docs/MODELS.md) — 各模型端点 / 鉴权格式（实测）
-- [`docs/PRD-学伴-v3.md`](docs/PRD-学伴-v3.md) — 产品需求文档
-- [`docs/manga-mini-migration.md`](docs/manga-mini-migration.md) — CloudBase 环境迁移手册
 - [`CLAUDE.md`](CLAUDE.md) — 给 AI 助手看的项目说明（架构 / 约定 / 易踩坑）
 
 ---

@@ -10,7 +10,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - 含 1 亿 hy3-preview Token 资源包 + 1 万张 hunyuan-image 资源包，2026-11-28 到期
   - 旧环境 `<old-env-id>`（体验版 baas_trial）已废弃，不享免费 Token
 - AppID：`<your-appid>`
-- 迁移操作手册：[docs/manga-mini-migration.md](docs/manga-mini-migration.md)
 
 ## 常用命令
 
@@ -95,8 +94,6 @@ providers/
 - **音频**：`wx.getBackgroundAudioManager()`，src 必须是 https URL（用 `fileIdToUrl` 从 fileID 转换）
 
 ## 模型 API 参考
-
-**[`docs/MODELS.md`](docs/MODELS.md) 是模型端点、model 字段、鉴权格式的权威来源**（实测更新，比训练数据准确）。改任何 API 调用前以此文为准。
 
 当前推荐选型：
 - 视觉 OCR：`qwen3-vl-plus`（DASHSCOPE_API_KEY）
