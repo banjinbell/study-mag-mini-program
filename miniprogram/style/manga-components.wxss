@@ -1,0 +1,709 @@
+/* ════════════════════════════════════════════════════════════════════
+   Manga Jump · 学習マガジン — Component Classes
+   依赖 manga-tokens.wxss（必须先 @import 它）
+   命名：所有可复用 class 一律 .mj-*
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ─── Page chrome ─── */
+.mj-page {
+  min-height: 100vh;
+  padding: 0 var(--mj-page-x) 200rpx;
+  background-color: var(--mj-newsprint);
+  background-image: var(--mj-screentone);
+  background-repeat: repeat;
+  background-size: 16rpx 16rpx;
+  color: var(--mj-ink);
+}
+.mj-page--no-tab {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ─── Masthead 刊头 ─── */
+.mj-masthead {
+  padding: 24rpx 0 16rpx;
+}
+.mj-masthead__row {
+  display: flex;
+  align-items: baseline;
+  gap: 20rpx;
+}
+.mj-masthead__rule {
+  height: 5rpx;
+  background: var(--mj-ink);
+  margin: 16rpx 0 18rpx;
+}
+.mj-tagline {
+  font-family: var(--mj-font-body);
+  font-size: 22rpx;
+  color: var(--mj-ink-soft);
+  margin-top: 6rpx;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Red skewed banner ─── */
+.mj-banner-skew {
+  display: inline-block;
+  background: var(--mj-red);
+  transform: skewX(-8deg);
+  padding: 8rpx 22rpx;
+  box-shadow: var(--mj-shadow-ink-sm);
+}
+.mj-banner-skew__text {
+  display: inline-block;
+  transform: skewX(8deg);
+  font-family: var(--mj-font-display);
+  font-size: 22rpx;
+  color: var(--mj-paper);
+  letter-spacing: 0.18em;
+  font-weight: 400;
+}
+
+/* ─── Type ─── */
+.mj-vol {
+  font-family: var(--mj-font-display);
+  font-size: 84rpx;
+  line-height: 0.85;
+  letter-spacing: -2rpx;
+  color: var(--mj-ink);
+  font-weight: 400;
+}
+.mj-vol-cn {
+  font-family: var(--mj-font-headline);
+  font-weight: 900;
+  font-size: 42rpx;
+  color: var(--mj-ink);
+}
+.mj-vol-issue {
+  font-family: var(--mj-font-display);
+  font-size: 22rpx;
+  color: var(--mj-ink-soft);
+  letter-spacing: 0.14em;
+  margin-left: auto;
+}
+
+.mj-eyebrow {
+  font-family: var(--mj-font-display);
+  font-size: 22rpx;
+  letter-spacing: 0.16em;
+  color: var(--mj-ink-soft);
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.mj-eyebrow-cn {
+  font-family: var(--mj-font-headline);
+  font-weight: 900;
+  font-size: 34rpx;
+  color: var(--mj-ink);
+  letter-spacing: 0.02em;
+}
+.mj-eyebrow-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18rpx;
+  margin: 36rpx 0 20rpx;
+}
+.mj-eyebrow-row .mj-eyebrow-rule {
+  flex: 1;
+  height: 4rpx;
+  background: var(--mj-ink);
+}
+
+.mj-headline {
+  font-family: var(--mj-font-headline);
+  font-weight: 900;
+  font-size: 46rpx;
+  line-height: 1.2;
+  color: var(--mj-ink);
+  letter-spacing: 0.005em;
+}
+.mj-episode-title {
+  font-family: var(--mj-font-headline);
+  font-weight: 900;
+  font-size: 50rpx;
+  line-height: 1.15;
+  color: var(--mj-ink);
+}
+
+.mj-body {
+  font-family: var(--mj-font-body);
+  font-size: 27rpx;
+  line-height: 1.8;
+  color: var(--mj-ink);
+}
+.mj-body-serif {
+  font-family: var(--mj-font-serif);
+  font-size: 28rpx;
+  line-height: 1.75;
+  color: var(--mj-ink);
+}
+.mj-body-heavy {
+  font-family: var(--mj-font-body);
+  font-weight: 700;
+  font-size: 26rpx;
+  line-height: 1.4;
+  color: var(--mj-ink);
+}
+.mj-body-light {
+  font-family: var(--mj-font-body);
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: var(--mj-ink-soft);
+}
+
+.mj-callsign {
+  font-family: var(--mj-font-display);
+  font-size: 28rpx;
+  letter-spacing: 0.08em;
+  color: var(--mj-ink);
+}
+.mj-callsign--red { color: var(--mj-red); }
+.mj-callsign--soft { color: var(--mj-ink-soft); font-size: 22rpx; }
+
+.mj-time {
+  font-family: var(--mj-font-display);
+  font-size: 24rpx;
+  letter-spacing: 0.08em;
+  color: var(--mj-ink);
+}
+
+.mj-drop-cap {
+  font-family: var(--mj-font-headline);
+  font-weight: 900;
+  font-size: 128rpx;
+  color: var(--mj-red);
+  line-height: 0.85;
+  float: left;
+  margin-right: 16rpx;
+  margin-top: 8rpx;
+}
+
+/* ─── Cards ─── */
+.mj-card {
+  background: var(--mj-paper);
+  border: var(--mj-border-frame);
+  box-shadow: var(--mj-shadow-ink-sm);
+  padding: var(--mj-s4);
+  margin-bottom: var(--mj-s6);
+}
+.mj-card--hero {
+  border: var(--mj-border-frame-heavy);
+  box-shadow: var(--mj-shadow-red);
+  padding: 28rpx 28rpx 32rpx;
+}
+.mj-card--solid {
+  background: var(--mj-paper);
+  border: var(--mj-border-frame);
+  box-shadow: var(--mj-shadow-ink);
+}
+
+/* ─── Sticker ─── */
+.mj-sticker {
+  display: inline-block;
+  background: var(--mj-yellow);
+  border: 3rpx solid var(--mj-ink);
+  padding: 4rpx 18rpx;
+  font-family: var(--mj-font-display);
+  font-size: 22rpx;
+  letter-spacing: 0.12em;
+  color: var(--mj-ink);
+  box-shadow: var(--mj-shadow-ink-sm);
+}
+.mj-sticker--rotate-pos { transform: rotate(6deg); }
+.mj-sticker--rotate-neg { transform: rotate(-3deg); }
+
+/* ─── Primary CTA (黑底白字 + 墨阴影) ─── */
+.mj-cta-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--mj-ink);
+  border: var(--mj-border-frame-heavy);
+  box-shadow: var(--mj-shadow-ink);
+  padding: 28rpx 32rpx;
+  color: var(--mj-paper);
+  font-family: var(--mj-font-body);
+  font-weight: 900;
+  font-size: 32rpx;
+  letter-spacing: 0.2em;
+  border-radius: 0;
+}
+.mj-cta-primary--disabled {
+  background: var(--mj-ink-soft);
+  box-shadow: 5rpx 5rpx 0 var(--mj-ink-soft);
+  opacity: 0.5;
+}
+.mj-cta-primary-hover {
+  transform: translate(3rpx, 3rpx);
+  box-shadow: 5rpx 5rpx 0 var(--mj-ink);
+}
+
+.mj-cta-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--mj-paper);
+  border: var(--mj-border-frame);
+  box-shadow: var(--mj-shadow-ink-sm);
+  padding: 22rpx 28rpx;
+  color: var(--mj-ink);
+  font-family: var(--mj-font-body);
+  font-weight: 700;
+  font-size: 28rpx;
+  letter-spacing: 0.08em;
+  border-radius: 0;
+}
+
+/* ─── Host face ─── */
+.mj-host-face {
+  display: inline-block;
+  width: 56rpx;
+  height: 56rpx;
+  filter: drop-shadow(2rpx 2rpx 0 var(--mj-ink));
+  flex-shrink: 0;
+}
+.mj-host-face--lg { width: 112rpx; height: 112rpx; }
+.mj-host-face--md { width: 72rpx; height: 72rpx; }
+.mj-host-face--sm { width: 44rpx; height: 44rpx; }
+
+.mj-host-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12rpx;
+  background: var(--mj-paper);
+  border: 3rpx solid var(--mj-ink);
+  box-shadow: var(--mj-shadow-ink-sm);
+  padding: 8rpx 20rpx 8rpx 12rpx;
+}
+.mj-host-chip__name {
+  font-family: var(--mj-font-headline);
+  font-weight: 900;
+  font-size: 22rpx;
+  color: var(--mj-ink);
+  letter-spacing: 0.02em;
+  margin-left: 4rpx;
+}
+
+/* ─── Waveform (chunky 墨色) ─── */
+.mj-waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 3rpx;
+  height: 64rpx;
+}
+.mj-waveform--lg { height: 88rpx; }
+.mj-waveform__bar {
+  width: 6rpx;
+  background: rgba(11, 11, 11, 0.18);
+  flex-shrink: 0;
+}
+.mj-waveform__bar--played {
+  background: var(--mj-ink);
+}
+
+/* ─── List row (EP / CH callsign + title + meta) ─── */
+.mj-list-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 22rpx 28rpx;
+  border-top: 3rpx dashed var(--mj-rule-dashed-color);
+}
+.mj-list-row:first-child { border-top: none; }
+.mj-list-row__num {
+  font-family: var(--mj-font-display);
+  font-size: 30rpx;
+  color: var(--mj-red);
+  letter-spacing: 0.06em;
+  width: 96rpx;
+  flex-shrink: 0;
+}
+.mj-list-row__title {
+  flex: 1;
+  font-family: var(--mj-font-body);
+  font-weight: 700;
+  font-size: 26rpx;
+  color: var(--mj-ink);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.mj-list-row__meta {
+  font-family: var(--mj-font-display);
+  font-size: 22rpx;
+  color: var(--mj-ink-soft);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+.mj-list-row__icon {
+  width: 28rpx;
+  height: 28rpx;
+  flex-shrink: 0;
+}
+.mj-list-row-hover {
+  background: rgba(216, 50, 31, 0.06);
+}
+
+/* ─── Key Point (黑方块编号 + 文字) ─── */
+.mj-keypoint {
+  display: flex;
+  align-items: flex-start;
+  gap: 24rpx;
+  margin-top: 28rpx;
+}
+.mj-keypoint:first-child { margin-top: 0; }
+.mj-keypoint__num {
+  width: 64rpx;
+  height: 64rpx;
+  flex-shrink: 0;
+  background: var(--mj-ink);
+  border: var(--mj-border-frame);
+  box-shadow: var(--mj-shadow-ink-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mj-font-display);
+  font-size: 32rpx;
+  color: var(--mj-paper);
+  letter-spacing: 0.04em;
+}
+.mj-keypoint__text {
+  flex: 1;
+  font-family: var(--mj-font-body);
+  font-weight: 500;
+  font-size: 27rpx;
+  line-height: 1.7;
+  color: var(--mj-ink);
+  padding-top: 4rpx;
+}
+
+/* ─── Yellow highlighter (用 background span) ─── */
+.mj-highlight {
+  background: var(--mj-yellow);
+  padding: 0 2rpx;
+  /* boxDecorationBreak: clone — wxss 不一定支持，长 span 折行时会断 */
+}
+
+/* ─── Yellow callout 概念框 ─── */
+.mj-callout {
+  background: var(--mj-yellow);
+  border: var(--mj-border-frame);
+  box-shadow: var(--mj-shadow-ink);
+  padding: 20rpx 24rpx 24rpx;
+  position: relative;
+  margin: 40rpx 0 8rpx;
+}
+.mj-callout__label {
+  position: absolute;
+  top: -20rpx;
+  left: 24rpx;
+  background: var(--mj-ink);
+  color: var(--mj-paper);
+  font-family: var(--mj-font-display);
+  font-size: 20rpx;
+  letter-spacing: 0.14em;
+  padding: 4rpx 16rpx;
+}
+.mj-callout__title {
+  font-family: var(--mj-font-headline);
+  font-weight: 900;
+  font-size: 28rpx;
+  color: var(--mj-ink);
+  margin-top: 12rpx;
+  line-height: 1.4;
+}
+.mj-callout__body {
+  font-family: var(--mj-font-body);
+  font-size: 24rpx;
+  color: var(--mj-ink);
+  line-height: 1.6;
+  margin-top: 8rpx;
+}
+
+/* ─── FIN divider ─── */
+.mj-fin-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24rpx;
+  margin: 56rpx 0 16rpx;
+}
+.mj-fin-divider__rule {
+  flex: 1;
+  height: 2rpx;
+  background: var(--mj-rule);
+}
+
+/* ─── Disclaimer (BY AI · 仅供学习参考) ─── */
+.mj-disclaimer {
+  font-family: var(--mj-font-display);
+  font-size: 20rpx;
+  color: var(--mj-ink-soft);
+  letter-spacing: 0.20em;
+  text-align: center;
+  margin-top: 16rpx;
+}
+
+/* ─── State zone (loading / empty / error) ─── */
+.mj-state-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  text-align: center;
+  gap: 16rpx;
+}
+.mj-state-zone__title {
+  font-family: var(--mj-font-headline);
+  font-weight: 900;
+  font-size: 36rpx;
+  color: var(--mj-ink);
+  letter-spacing: 0.02em;
+}
+.mj-state-zone__sub {
+  font-family: var(--mj-font-body);
+  font-size: 26rpx;
+  color: var(--mj-ink-soft);
+  line-height: 1.7;
+  max-width: 540rpx;
+}
+
+/* ─── Pulsing red dot (ON AIR / LIVE) ─── */
+.mj-dot-live {
+  display: inline-block;
+  width: 14rpx;
+  height: 14rpx;
+  background: var(--mj-red);
+  margin-right: 12rpx;
+  vertical-align: middle;
+  animation: mj-pulse 1.6s ease-in-out infinite;
+}
+@keyframes mj-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* ─── Hero card top row (ON AIR + EP date) ─── */
+.mj-on-air {
+  display: flex;
+  align-items: center;
+  font-family: var(--mj-font-display);
+  font-size: 20rpx;
+  color: var(--mj-red);
+  letter-spacing: 0.22em;
+}
+
+/* ─── Player controls row ─── */
+.mj-player-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56rpx;
+  margin-top: 24rpx;
+}
+.mj-player-ctrl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+.mj-player-ctrl__btn {
+  width: 88rpx;
+  height: 88rpx;
+  background: var(--mj-paper);
+  border: var(--mj-border-frame);
+  box-shadow: var(--mj-shadow-ink-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mj-player-ctrl__btn--play {
+  width: 128rpx;
+  height: 128rpx;
+  background: var(--mj-ink);
+  box-shadow: 8rpx 8rpx 0 var(--mj-red);
+}
+.mj-player-ctrl__icon {
+  width: 44rpx;
+  height: 44rpx;
+}
+.mj-player-ctrl__icon--play {
+  width: 48rpx;
+  height: 52rpx;
+}
+.mj-player-ctrl__label {
+  font-family: var(--mj-font-display);
+  font-size: 20rpx;
+  color: var(--mj-ink-soft);
+  letter-spacing: 0.12em;
+}
+.mj-player-ctrl__label--main {
+  color: var(--mj-ink);
+  letter-spacing: 0.14em;
+}
+.mj-player-ctrl-hover {
+  transform: translate(2rpx, 2rpx);
+  box-shadow: 3rpx 3rpx 0 var(--mj-ink);
+}
+
+/* ─── Chapter row (collapsible item) ─── */
+.mj-chapter {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 22rpx 24rpx;
+  border-top: 3rpx dashed var(--mj-rule-dashed-color);
+}
+.mj-chapter:first-child { border-top: none; }
+.mj-chapter__num {
+  font-family: var(--mj-font-display);
+  font-size: 28rpx;
+  color: var(--mj-red);
+  letter-spacing: 0.06em;
+  width: 88rpx;
+  flex-shrink: 0;
+}
+.mj-chapter__title {
+  flex: 1;
+  font-family: var(--mj-font-body);
+  font-weight: 700;
+  font-size: 26rpx;
+  color: var(--mj-ink);
+  line-height: 1.4;
+  min-width: 0;
+}
+.mj-chapter__chevron {
+  width: 28rpx;
+  height: 28rpx;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.mj-chapter__chevron--open {
+  transform: rotate(180deg);
+}
+.mj-chapter__body {
+  background: var(--mj-paper);
+  padding: 0 24rpx 24rpx;
+  font-family: var(--mj-font-body);
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: var(--mj-ink);
+  border-top: 2rpx dashed var(--mj-rule);
+}
+
+/* ─── Mode selector tabs (submit page) ─── */
+.mj-mode-tabs {
+  display: flex;
+  gap: 16rpx;
+  margin: 32rpx 0 20rpx;
+}
+.mj-mode-tab {
+  flex: 1;
+  background: var(--mj-paper);
+  border: var(--mj-border-frame);
+  padding: 20rpx 0;
+  text-align: center;
+  font-family: var(--mj-font-body);
+  font-weight: 700;
+  font-size: 26rpx;
+  color: var(--mj-ink);
+  box-shadow: var(--mj-shadow-ink-sm);
+  letter-spacing: 0.04em;
+}
+.mj-mode-tab--active {
+  background: var(--mj-ink);
+  color: var(--mj-paper);
+  transform: translate(-2rpx, -2rpx);
+  box-shadow: 6rpx 6rpx 0 var(--mj-red);
+}
+
+/* ─── Upload tiles (submit · image mode) ─── */
+.mj-upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+.mj-upload-tile {
+  background: var(--mj-paper);
+  border: var(--mj-border-frame);
+  box-shadow: var(--mj-shadow-ink-sm);
+  padding: 40rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+}
+.mj-upload-tile__icon {
+  width: 80rpx;
+  height: 80rpx;
+}
+.mj-upload-tile__label {
+  font-family: var(--mj-font-body);
+  font-weight: 700;
+  font-size: 26rpx;
+  color: var(--mj-ink);
+}
+.mj-upload-tile-hover {
+  transform: translate(2rpx, 2rpx);
+  box-shadow: 3rpx 3rpx 0 var(--mj-ink);
+}
+
+/* ─── Native textarea (manga-skinned) ─── */
+.mj-textarea {
+  width: 100%;
+  background: var(--mj-paper);
+  border: var(--mj-border-frame);
+  box-shadow: var(--mj-shadow-ink-sm);
+  padding: 24rpx;
+  font-family: var(--mj-font-body);
+  font-size: 28rpx;
+  line-height: 1.7;
+  color: var(--mj-ink);
+  min-height: 240rpx;
+  box-sizing: border-box;
+}
+.mj-textarea-placeholder {
+  color: var(--mj-ink-soft);
+  font-style: normal;
+}
+
+/* ─── Image preview ─── */
+.mj-image-preview {
+  background: var(--mj-paper);
+  border: var(--mj-border-frame);
+  box-shadow: var(--mj-shadow-ink-sm);
+  padding: 16rpx;
+}
+.mj-image-preview__img {
+  width: 100%;
+  display: block;
+}
+
+/* ─── Tag (status: pending / processing / done / failed) ─── */
+.mj-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mj-font-display);
+  font-size: 20rpx;
+  letter-spacing: 0.14em;
+  padding: 3rpx 14rpx;
+  border: 2rpx solid var(--mj-ink);
+  box-shadow: 3rpx 3rpx 0 var(--mj-ink);
+}
+.mj-tag--done    { background: var(--mj-yellow); transform: rotate(-3deg); }
+.mj-tag--pending { background: var(--mj-paper); color: var(--mj-ink-soft); }
+.mj-tag--processing { background: var(--mj-red); color: var(--mj-paper); transform: rotate(2deg); }
+.mj-tag--failed  { background: var(--mj-ink); color: var(--mj-paper); }
+
+/* ─── Footnote (smaller secondary text) ─── */
+.mj-footnote {
+  font-family: var(--mj-font-body);
+  font-size: 22rpx;
+  color: var(--mj-ink-soft);
+  line-height: 1.6;
+  margin-top: 16rpx;
+}

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh" translate="no"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>学伴 · 产品演示 — STUDY MAG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Noto+Sans+SC:wght@400;500;700;900&amp;family=Noto+Serif+SC:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+  deck-stage:not(:defined){visibility:hidden}
+  :root{
+    --mj-newsprint:#F4EFE3; --mj-paper:#FAF7EE; --mj-ink:#0B0B0B; --mj-ink-soft:#5A5448;
+    --mj-accent:#D8321F; --mj-yellow:#F4CC2A; --mj-rule:rgba(11,11,11,.18); --mj-rule-dashed:rgba(11,11,11,.30);
+    --mj-shadow-ink:14px 14px 0 var(--mj-ink); --mj-shadow-ink-sm:8px 8px 0 var(--mj-ink);
+    --mj-shadow-accent:18px 18px 0 var(--mj-accent); --mj-shadow-accent-sm:10px 10px 0 var(--mj-accent);
+    --mj-border:6px solid var(--mj-ink); --mj-border-heavy:8px solid var(--mj-ink);
+    --font-display:'Anton','Bebas Neue',sans-serif;
+    --font-head:'Noto Sans SC','PingFang SC',sans-serif;
+    --font-body:'Noto Sans SC','PingFang SC',sans-serif;
+    --font-serif:'Noto Serif SC',serif;
+    /* type scale (1920×1080) */
+    --type-display:240px; --type-title:104px; --type-headline:72px; --type-subtitle:52px;
+    --type-body:36px; --type-small:28px; --type-eyebrow:26px; --type-callsign:34px; --type-num:200px;
+    --pad-x:120px; --pad-top:104px; --pad-bottom:124px; --gap-title:48px; --gap-item:30px;
+    --screentone:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Ccircle cx='6' cy='6' r='1.7' fill='%230B0B0B' opacity='0.08'/%3E%3C/svg%3E");
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#161412;}
+  deck-stage{--tone:var(--screentone)}
+  deck-stage[data-tone="off"]{--tone:none}
+
+  section.slide{
+    width:1920px;height:1080px;overflow:hidden;position:relative;
+    background-color:var(--mj-newsprint);
+    background-image:var(--tone);background-repeat:repeat;background-size:24px 24px;
+    color:var(--mj-ink);font-family:var(--font-body);
+    padding:var(--pad-top) var(--pad-x) var(--pad-bottom);
+    display:flex;flex-direction:column;
+  }
+  section.slide.dark{background-color:var(--mj-ink);color:var(--mj-paper);
+    background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Ccircle cx='6' cy='6' r='1.7' fill='%23FAF7EE' opacity='0.06'/%3E%3C/svg%3E");}
+
+  /* ── shared chrome ── */
+  .banner{display:inline-block;background:var(--mj-accent);transform:skewX(-8deg);padding:12px 32px;box-shadow:var(--mj-shadow-ink-sm);}
+  .banner span{display:inline-block;transform:skewX(8deg);font-family:var(--font-display);font-size:30px;color:var(--mj-paper);letter-spacing:.18em;}
+  .eyebrow{display:flex;align-items:baseline;gap:24px;margin-bottom:var(--gap-title);}
+  .eyebrow .cn{font-family:var(--font-head);font-weight:900;font-size:44px;letter-spacing:.02em;}
+  .eyebrow .en{font-family:var(--font-display);font-size:var(--type-eyebrow);letter-spacing:.16em;color:var(--mj-ink-soft);text-transform:uppercase;}
+  .dark .eyebrow .en{color:#b8b09e;}
+  .eyebrow .rule{flex:1;height:5px;background:var(--mj-ink);}
+  .dark .eyebrow .rule{background:var(--mj-paper);}
+  .kicker{font-family:var(--font-display);font-size:var(--type-callsign);letter-spacing:.14em;color:var(--mj-ink-soft);text-transform:uppercase;}
+  .title{font-family:var(--font-head);font-weight:900;font-size:var(--type-title);line-height:1.04;letter-spacing:.005em;}
+  .lead{font-family:var(--font-body);font-size:var(--type-body);line-height:1.7;max-width:1180px;}
+  .lead .hl{background:var(--mj-yellow);padding:0 6px;color:var(--mj-ink);box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .soft{color:var(--mj-ink-soft);}
+  .dark .soft{color:#b8b09e;}
+  .sticker{display:inline-block;background:var(--mj-yellow);border:4px solid var(--mj-ink);padding:8px 26px;font-family:var(--font-display);font-size:30px;letter-spacing:.12em;color:var(--mj-ink);box-shadow:var(--mj-shadow-ink-sm);}
+  .sticker.rp{transform:rotate(6deg)} .sticker.rn{transform:rotate(-3deg)}
+  .footer{position:absolute;left:var(--pad-x);right:var(--pad-x);bottom:44px;display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--font-display);font-size:24px;letter-spacing:.2em;color:var(--mj-ink-soft);}
+  .dark .footer{color:#8a8473;}
+  .footer .pg{color:var(--mj-accent);}
+
+  .phone-host{height:100%;width:100%;}
+  /* pipeline step (dark slide) */
+  .step{background:rgba(250,247,238,.05);border:4px solid var(--mj-paper);padding:28px 22px;display:flex;flex-direction:column;}
+  .step .sn{font-family:var(--font-display);font-size:64px;line-height:.8;color:var(--mj-yellow);}
+  .step .st{font-family:var(--font-head);font-weight:900;font-size:34px;margin:18px 0 10px;color:var(--mj-paper);}
+  .step .sm{font-family:var(--font-body);font-size:24px;line-height:1.4;color:#b8b09e;margin-top:auto;}
+  .step.hot{background:var(--mj-accent);border-color:var(--mj-accent);}
+  .step.hot .sn{color:var(--mj-paper);} .step.hot .sm{color:rgba(250,247,238,.85);}
+  /* non-functional cards */
+  .nf{background:var(--mj-paper);border:var(--mj-border-heavy);box-shadow:var(--mj-shadow-ink);padding:38px 40px;display:flex;flex-direction:column;}
+  .nf-k{font-family:var(--font-display);font-size:24px;letter-spacing:.12em;color:var(--mj-ink-soft);text-transform:uppercase;}
+  .nf-v{font-family:var(--font-head);font-weight:900;font-size:108px;line-height:.9;color:var(--mj-accent);margin:14px 0 auto;}
+  .nf-v .u{font-size:40px;color:var(--mj-ink);margin-left:10px;}
+  .nf-d{font-family:var(--font-body);font-size:28px;line-height:1.5;color:var(--mj-ink);margin-top:24px;}
+  .nf.dark-nf{background:var(--mj-ink);box-shadow:var(--mj-shadow-accent);}
+  .nf.dark-nf .nf-k{color:#b8b09e;} .nf.dark-nf .nf-v{color:var(--mj-yellow);} .nf.dark-nf .nf-d{color:var(--mj-paper);}
+
+  /* entrance — driven by slidechange + WAAPI (see bottom script); base state stays visible */
+</style>
+<meta name="google" content="notranslate"></head>
+<body translate="no" class="notranslate">
+<deck-stage width="1920" height="1080" data-tone="on" data-om-id="ad446f84:8" style="--deck-rail-w: 188px;" data-cc-id="cc-3">
+
+  <!-- 01 · COVER -->
+  <section class="slide" data-label="封面" style="padding-top:56px;" data-om-id="ad446f84:9" data-screen-label="01 封面" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="0">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;" data-om-id="ad446f84:10">
+      <div class="banner anim" data-om-id="ad446f84:11"><span data-om-id="ad446f84:12">STUDY MAG · 学習マガジン</span></div>
+      <div class="kicker anim d1" style="text-align:right;line-height:1.5;" data-om-id="ad446f84:13">LIVE DEMO · 产品演示<br data-om-id="ad446f84:14"><span style="color:var(--mj-accent)" data-om-id="ad446f84:15">点右边手机自己试 ▸</span></div>
+    </div>
+    <div style="height:8px;background:var(--mj-ink);margin:36px 0 0;" class="anim d1" data-om-id="ad446f84:16"></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;" data-om-id="ad446f84:17">
+      <div class="anim d2" style="font-family: var(--font-display); font-size: 300px; line-height: 0.8; letter-spacing: -4px; color: var(--mj-accent); padding: 40px;" data-om-id="ad446f84:18">学伴</div>
+      <div class="anim d3" style="font-family:var(--font-head);font-weight:900;font-size:120px;line-height:1.02;margin-top:8px;" data-om-id="ad446f84:19">你的第二海马体</div>
+      <div class="lead anim d4" style="font-size:42px;margin-top:40px;" data-om-id="ad446f84:20">把每天刷到的碎片化阅读，<span class="hl" data-om-id="ad446f84:21">自动整理、归档、合成可听播客</span>。<br data-om-id="ad446f84:22">一个自己每天用、越用越合口味的私人知识收件箱。</div>
+    </div>
+    <div class="anim d5" style="display:flex;gap:28px;align-items:center;" data-om-id="ad446f84:23">
+      <span class="sticker rp" data-om-id="ad446f84:24">TAP TO TRY ▸</span>
+      <span class="kicker" data-om-id="ad446f84:25">微信小程序 · 四个页面自己点着看 · 输入 / 档案 / 播客 / 我的</span>
+    </div>
+  </section>
+
+  <section class="slide" data-label="输入" data-om-id="ad446f84:123" data-screen-label="05 输入" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="4">
+    <div style="display:flex;gap:96px;height:100%;align-items:stretch;" data-om-id="ad446f84:124">
+      <div class="anim" style="width:560px;flex-shrink:0;" data-om-id="ad446f84:125"><div class="phone-host" data-om-id="ad446f84:126"><xueban-phone start="new" data-om-id="ad446f84:127"></xueban-phone></div></div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;" data-om-id="ad446f84:128">
+        <div class="eyebrow anim d1" data-om-id="ad446f84:129"><span class="cn" data-om-id="ad446f84:130">输入</span><span class="en" data-om-id="ad446f84:131">/ Input · NEW</span><span class="rule" data-om-id="ad446f84:132"></span></div>
+        <div class="title anim d1" style="font-size:84px;" data-om-id="ad446f84:133">截图、文字、链接，<br data-om-id="ad446f84:134">任意一种扔进去。</div>
+        <div class="lead anim d2" style="margin-top:40px;" data-om-id="ad446f84:135">提交后 <span class="hl" data-om-id="ad446f84:136">1 秒内返回任务 ID</span>，立即可关掉小程序去做别的。<br data-om-id="ad446f84:137">处理在后台跑：pending → processing → done。</div>
+        <div class="anim d3" style="margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" data-om-id="ad446f84:138">
+          <div style="background:var(--mj-paper);border:var(--mj-border);box-shadow:var(--mj-shadow-ink-sm);padding:30px 28px;" data-om-id="ad446f84:139"><div class="kicker" style="color:var(--mj-accent);font-size:24px;" data-om-id="ad446f84:140">TXT</div><div style="font-family:var(--font-head);font-weight:900;font-size:38px;margin-top:8px;" data-om-id="ad446f84:141">文字</div><div class="soft" style="font-size:26px;margin-top:6px;" data-om-id="ad446f84:142">直接粘贴</div></div>
+          <div style="background:var(--mj-paper);border:var(--mj-border);box-shadow:var(--mj-shadow-ink-sm);padding:30px 28px;" data-om-id="ad446f84:143"><div class="kicker" style="color:var(--mj-accent);font-size:24px;" data-om-id="ad446f84:144">IMG</div><div style="font-family:var(--font-head);font-weight:900;font-size:38px;margin-top:8px;" data-om-id="ad446f84:145">图片</div><div class="soft" style="font-size:26px;margin-top:6px;" data-om-id="ad446f84:146">截图 OCR</div></div>
+          <div style="background:var(--mj-paper);border:var(--mj-border);box-shadow:var(--mj-shadow-ink-sm);padding:30px 28px;" data-om-id="ad446f84:147"><div class="kicker" style="color:var(--mj-accent);font-size:24px;" data-om-id="ad446f84:148">URL</div><div style="font-family:var(--font-head);font-weight:900;font-size:38px;margin-top:8px;" data-om-id="ad446f84:149">链接</div><div class="soft" style="font-size:26px;margin-top:6px;" data-om-id="ad446f84:150">小红书 / 公众号</div></div>
+        </div>
+        <div class="anim d4 soft" style="margin-top:36px;font-family:var(--font-body);font-size:28px;" data-om-id="ad446f84:151">小红书仅支持图文笔记 · 公众号支持图文文章 · <strong style="color:var(--mj-ink-soft)" data-om-id="ad446f84:152">视频暂不支持，明确告知用户</strong>。</div>
+      </div>
+    </div>
+    <div class="footer" data-om-id="ad446f84:153"><span data-om-id="ad446f84:154">输入 · INPUT</span><span class="pg" data-om-id="ad446f84:155">05</span></div>
+  </section>
+
+  <section class="slide" data-label="档案" data-om-id="ad446f84:229" data-screen-label="06 档案" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="5">
+    <div style="display:flex;gap:96px;height:100%;align-items:stretch;" data-om-id="ad446f84:230">
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding-top:8px;" data-om-id="ad446f84:231">
+        <div class="eyebrow anim" data-om-id="ad446f84:232"><span class="cn" data-om-id="ad446f84:233">档案</span><span class="en" data-om-id="ad446f84:234">/ Archive</span><span class="rule" data-om-id="ad446f84:235"></span></div>
+        <div class="title anim d1" style="font-size:88px;" data-om-id="ad446f84:236">攒进来的，<br data-om-id="ad446f84:237">都找得回来。</div>
+        <div class="lead anim d2" style="margin-top:40px;" data-om-id="ad446f84:238">时间序列列出所有已生成的播客，可随时回顾。按<span class="hl" data-om-id="ad446f84:239">每日一刊</span>节奏，期号自动递增。</div>
+        <div class="anim d3" style="margin-top:48px;display:flex;flex-direction:column;gap:28px;" data-om-id="ad446f84:240">
+          <div style="display:flex;align-items:baseline;gap:28px;border-top:4px solid var(--mj-ink);padding-top:24px;" data-om-id="ad446f84:241"><span class="kicker" style="color:var(--mj-accent);width:130px;flex-shrink:0;" data-om-id="ad446f84:242">FILTER</span><span style="font-size:32px;" data-om-id="ad446f84:243">按概念、领域、来源平台过滤</span></div>
+          <div style="display:flex;align-items:baseline;gap:28px;border-top:4px solid var(--mj-ink);padding-top:24px;" data-om-id="ad446f84:244"><span class="kicker" style="color:var(--mj-accent);width:130px;flex-shrink:0;" data-om-id="ad446f84:245">SEARCH</span><span style="font-size:32px;" data-om-id="ad446f84:246">全文检索：标题 + 概念 + 章节</span></div>
+          <div style="display:flex;align-items:baseline;gap:28px;border-top:4px solid var(--mj-ink);padding-top:24px;" data-om-id="ad446f84:247"><span class="kicker" style="color:var(--mj-accent);width:130px;flex-shrink:0;" data-om-id="ad446f84:248">GESTURE</span><span style="font-size:32px;" data-om-id="ad446f84:249">下拉刷新 · 长按撤刊</span></div>
+        </div>
+      </div>
+      <div class="anim d2" style="width:560px;flex-shrink:0;" data-om-id="ad446f84:250"><div class="phone-host" data-om-id="ad446f84:251"><xueban-phone start="archive" data-om-id="ad446f84:252"></xueban-phone></div></div>
+    </div>
+    <div class="footer" data-om-id="ad446f84:253"><span data-om-id="ad446f84:254">档案 · ARCHIVE</span><span class="pg" data-om-id="ad446f84:255">06</span></div>
+  </section>
+
+  <section class="slide" data-label="现场演示" data-om-id="ad446f84:97" data-screen-label="07 现场演示" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="6">
+    <div style="display:flex;gap:96px;height:100%;align-items:stretch;" data-om-id="ad446f84:98">
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;max-width:880px;" data-om-id="ad446f84:99">
+        <div class="banner anim" data-om-id="ad446f84:100"><span data-om-id="ad446f84:101">現場演示 · LIVE DEMO</span></div>
+        <div class="title anim d1" style="font-size:108px;margin-top:40px;" data-om-id="ad446f84:102">点开，<br data-om-id="ad446f84:103">听一期。</div>
+        <div class="lead anim d2" style="margin-top:40px;" data-om-id="ad446f84:104">右边是<span class="hl" data-om-id="ad446f84:105">真实运行的小程序</span>。点 <strong data-om-id="ad446f84:106">PLAY</strong> 听这期由双主播合成的播客，<br data-om-id="ad446f84:107">拖动波形跳转，−15s / +30s 微调。</div>
+        <div class="anim d3" style="margin-top:48px;display:flex;flex-direction:column;gap:20px;" data-om-id="ad446f84:108">
+          <div style="display:flex;align-items:center;gap:24px;" data-om-id="ad446f84:109"><span style="font-family:var(--font-display);font-size:34px;color:var(--mj-accent);width:62px;" data-om-id="ad446f84:110">▶</span><span style="font-size:32px;" data-om-id="ad446f84:111">点中央黑色按钮播放真实音频</span></div>
+          <div style="display:flex;align-items:center;gap:24px;" data-om-id="ad446f84:112"><span style="font-family:var(--font-display);font-size:34px;color:var(--mj-accent);width:62px;" data-om-id="ad446f84:113">⟳</span><span style="font-size:32px;" data-om-id="ad446f84:114">顶部 ← BACK 回档案，三个标签切页</span></div>
+        </div>
+        <div class="anim d4" style="margin-top:auto;" data-om-id="ad446f84:115"><span class="sticker rp" style="margin:20px 0px 100px;" data-om-id="ad446f84:116">TAP TO PLAY ▸</span></div>
+      </div>
+      <div class="anim d2" style="width:560px;flex-shrink:0;" data-om-id="ad446f84:117"><div class="phone-host" data-om-id="ad446f84:118"><xueban-phone start="player" data-om-id="ad446f84:119"></xueban-phone></div></div>
+    </div>
+    <div class="footer" data-om-id="ad446f84:120"><span data-om-id="ad446f84:121">现场演示 · LIVE DEMO</span><span class="pg" data-om-id="ad446f84:122">07</span></div>
+  </section>
+
+  <section class="slide" data-label="我的" data-om-id="ad446f84:256" data-screen-label="09 我的" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="8">
+    <div style="display:flex;gap:96px;height:100%;align-items:stretch;" data-om-id="ad446f84:257">
+      <div class="anim" style="width:560px;flex-shrink:0;" data-om-id="ad446f84:258"><div class="phone-host" data-om-id="ad446f84:259"><xueban-phone start="me" data-om-id="ad446f84:260"></xueban-phone></div></div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;" data-om-id="ad446f84:261">
+        <div class="eyebrow anim d1" data-om-id="ad446f84:262"><span class="cn" data-om-id="ad446f84:263">我的</span><span class="en" data-om-id="ad446f84:264">/ Me · 约稿单</span><span class="rule" data-om-id="ad446f84:265"></span></div>
+        <div class="title anim d1" style="font-size:84px;" data-om-id="ad446f84:266">自定义风格，<br data-om-id="ad446f84:267">播客更像写给你的。</div>
+        <div class="anim d2" style="margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:24px;" data-om-id="ad446f84:268">
+          <div style="background:var(--mj-paper);border:var(--mj-border);box-shadow:var(--mj-shadow-ink-sm);padding:28px 30px;" data-om-id="ad446f84:269"><div class="kicker" style="color:var(--mj-accent);font-size:24px;" data-om-id="ad446f84:270">身份 / IDENTITY</div><div style="font-size:30px;margin-top:8px;" data-om-id="ad446f84:271">单选 / 自填</div></div>
+          <div style="background:var(--mj-paper);border:var(--mj-border);box-shadow:var(--mj-shadow-ink-sm);padding:28px 30px;" data-om-id="ad446f84:272"><div class="kicker" style="color:var(--mj-accent);font-size:24px;" data-om-id="ad446f84:273">信息密度 / DENSITY</div><div style="font-size:30px;margin-top:8px;" data-om-id="ad446f84:274">轻 · 中 · 密</div></div>
+          <div style="background:var(--mj-paper);border:var(--mj-border);box-shadow:var(--mj-shadow-ink-sm);padding:28px 30px;" data-om-id="ad446f84:275"><div class="kicker" style="color:var(--mj-accent);font-size:24px;" data-om-id="ad446f84:276">对谈偏好 / TONE</div><div style="font-size:30px;margin-top:8px;" data-om-id="ad446f84:277">多选 · 7 种风格</div></div>
+          <div style="background:var(--mj-paper);border:var(--mj-border);box-shadow:var(--mj-shadow-ink-sm);padding:28px 30px;" data-om-id="ad446f84:278"><div class="kicker" style="color:var(--mj-accent);font-size:24px;" data-om-id="ad446f84:279">关注领域 / TOPICS</div><div style="font-size:30px;margin-top:8px;" data-om-id="ad446f84:280">多选 + 自定义</div></div>
+        </div>
+        <div class="lead anim d3" style="margin-top:40px;font-size:30px;" data-om-id="ad446f84:281">配置变更不重处理已经生成的播客，从下一次新建开始生效，<span class="hl" data-om-id="ad446f84:282">越用越合口味</span>。</div>
+      </div>
+    </div>
+    <div class="footer" data-om-id="ad446f84:283"><span data-om-id="ad446f84:284">我的 · ME</span><span class="pg" data-om-id="ad446f84:285">09</span></div>
+  </section>
+
+  <section class="slide dark" data-label="封底" data-om-id="ad446f84:438" data-screen-label="15 封底" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="14" data-deck-last-visible="">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;" data-om-id="ad446f84:439">
+      <div class="banner anim" data-om-id="ad446f84:440"><span data-om-id="ad446f84:441">STUDY MAG · 学習マガジン</span></div>
+      <div class="kicker anim d1" style="text-align:right;color:#8a8473" data-om-id="ad446f84:442">PRD v3 · 2026·06·02</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;" data-om-id="ad446f84:443">
+      <div class="anim d2" style="font-family:var(--font-head);font-weight:900;font-size:150px;line-height:1;color:var(--mj-paper);" data-om-id="ad446f84:444">你的第二海马体</div>
+      <div class="lead anim d3" style="color:#b8b09e;margin-top:44px;font-size:38px;max-width:1080px;" data-om-id="ad446f84:445">做一个自己每天用、越用越合自己口味的私人知识收件箱。<br data-om-id="ad446f84:446">以「第二海马体」自留地的形式存在。</div>
+      <div class="anim d4" style="margin-top:64px;display:flex;align-items:center;gap:36px;" data-om-id="ad446f84:447">
+        <span class="sticker rn" data-om-id="ad446f84:448">FIN. / 完</span>
+        <span class="kicker" style="color:#8a8473" data-om-id="ad446f84:449"></span>
+      </div>
+    </div>
+    <div class="footer" data-om-id="ad446f84:450"><span style="color:#8a8473" data-om-id="ad446f84:451">学伴 · BY ME · FOR PERSONAL USE</span><span style="color:var(--mj-accent)" data-om-id="ad446f84:452">14</span></div>
+  </section>
+
+
+
+</deck-stage>
+<!-- ── Tweaks panel (hidden until host activates edit mode) ── -->
+<div id="tw" hidden="">
+  <div class="tw-head"><span>TWEAKS</span><button id="tw-x" aria-label="close">✕</button></div>
+  <div class="tw-sec">配色 / ACCENT</div>
+  <div class="tw-row" id="tw-accent">
+    <button data-c="#D8321F" class="on"><i style="background:#D8321F"></i>JUMP 红</button>
+    <button data-c="#2A4E8A"><i style="background:#2A4E8A"></i>特别号蓝</button>
+  </div>
+  <div class="tw-sec">网点 / SCREENTONE</div>
+  <div class="tw-row" id="tw-tone">
+    <button data-t="on" class="on">开 ON</button>
+    <button data-t="off">关 OFF</button>
+  </div>
+</div>
+<style>
+  #tw{position:fixed;top:20px;right:20px;width:264px;z-index:99999;background:var(--mj-paper);
+    border:4px solid var(--mj-ink);box-shadow:8px 8px 0 var(--mj-ink);padding:0 0 16px;font-family:var(--font-body);color:var(--mj-ink);}
+  #tw[hidden]{display:none}
+  .tw-head{display:flex;align-items:center;justify-content:space-between;background:var(--mj-ink);color:var(--mj-paper);
+    padding:10px 14px;font-family:var(--font-display);font-size:18px;letter-spacing:.2em;}
+  #tw-x{background:none;border:none;color:var(--mj-paper);font-size:18px;cursor:pointer;line-height:1;}
+  .tw-sec{font-family:var(--font-display);font-size:14px;letter-spacing:.16em;color:var(--mj-ink-soft);margin:16px 16px 8px;}
+  .tw-row{display:flex;gap:10px;padding:0 16px;}
+  .tw-row button{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--mj-newsprint);
+    border:3px solid var(--mj-ink);box-shadow:3px 3px 0 var(--mj-ink);padding:11px 6px;font-family:var(--font-body);
+    font-weight:700;font-size:15px;cursor:pointer;color:var(--mj-ink);}
+  .tw-row button i{width:16px;height:16px;border:2px solid var(--mj-ink);display:inline-block;}
+  .tw-row button.on{background:var(--mj-yellow);transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--mj-ink);}
+</style>
+<script src="deck-stage.js"></script>
+<script src="xueban-phone.js"></script>
+<script>
+(function(){
+  var root=document.documentElement, deck=document.querySelector('deck-stage'), panel=document.getElementById('tw');
+  var KEY='xueban-prd-tweaks';
+  var state={accent:'#D8321F',tone:'on'};
+  try{var s=JSON.parse(localStorage.getItem(KEY)||'{}');Object.assign(state,s);}catch(e){}
+  function apply(){
+    root.style.setProperty('--mj-accent',state.accent);
+    deck.setAttribute('data-tone',state.tone);
+    panel.querySelectorAll('#tw-accent button').forEach(function(b){b.classList.toggle('on',b.dataset.c===state.accent);});
+    panel.querySelectorAll('#tw-tone button').forEach(function(b){b.classList.toggle('on',b.dataset.t===state.tone);});
+    try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+  }
+  panel.querySelectorAll('#tw-accent button').forEach(function(b){b.addEventListener('click',function(){state.accent=b.dataset.c;apply();});});
+  panel.querySelectorAll('#tw-tone button').forEach(function(b){b.addEventListener('click',function(){state.tone=b.dataset.t;apply();});});
+  apply();
+  // host edit-mode protocol
+  document.getElementById('tw-x').addEventListener('click',function(){panel.hidden=true;try{window.parent.postMessage({type:'__edit_mode_dismissed'},'*');}catch(e){}});
+  window.addEventListener('message',function(e){var t=e&&e.data&&e.data.type;if(t==='__activate_edit_mode')panel.hidden=false;else if(t==='__deactivate_edit_mode')panel.hidden=true;});
+  try{window.parent.postMessage({type:'__edit_mode_available'},'*');}catch(e){}
+})();
+</script>
+<script>
+(function(){
+  /* Auto-number slide footers by DOM position so page numbers stay correct
+     even if slides are reordered in the thumbnail rail. Entrance animation
+     is intentionally omitted (this environment can freeze the timeline,
+     which would hide content); slides render at full opacity by default. */
+  var deck=document.querySelector('deck-stage');
+  function numberFooters(){
+    var secs=[].slice.call(deck.querySelectorAll('section.slide'));
+    secs.forEach(function(s,i){
+      var f=s.querySelector('.footer'); if(!f) return;
+      var pg=f.querySelector('.pg')||f.querySelector('span:last-child');
+      if(pg) pg.textContent=('0'+(i+1)).slice(-2);
+    });
+  }
+  numberFooters();
+  deck.addEventListener('deckchange', numberFooters);
+})();
+</script>
+
+
+</body></html>

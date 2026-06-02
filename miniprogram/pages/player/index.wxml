@@ -1,0 +1,191 @@
+<view class="mj-page mj-page--no-tab">
+
+  <!-- ─── pending / processing ─── -->
+  <view wx:if="{{task.status === 'pending' || task.status === 'processing'}}" class="mj-state-zone">
+    <view class="mj-banner-skew" style="margin-bottom: 32rpx;">
+      <view class="mj-banner-skew__text">{{statusLabel}} · DRAFTING</view>
+    </view>
+    <view class="mj-state-zone__title">两位主持人正在撰稿</view>
+    <view class="mj-state-zone__sub">把这篇文章拆成对谈稿 · 通常 2–3 分钟。可以先离开，做完会推消息。</view>
+    <view class="mj-disclaimer" style="margin-top: 64rpx;">TASK · {{task.taskId}}</view>
+  </view>
+
+  <!-- ─── failed ─── -->
+  <view wx:elif="{{task.status === 'failed'}}" class="mj-state-zone">
+    <view class="mj-tag mj-tag--failed" style="margin-bottom: 32rpx;">脱稿 · OFF DECK</view>
+    <view class="mj-state-zone__title">生成失败</view>
+    <view class="mj-state-zone__sub">{{task.error || '未知错误，请稍后再试'}}</view>
+    <view
+      class="mj-cta-secondary"
+      hover-class="mj-player-ctrl-hover"
+      bindtap="goBack"
+      style="margin-top: 48rpx; max-width: 320rpx;"
+    >← 返刊 / BACK</view>
+  </view>
+
+  <!-- ─── done ─── -->
+  <view wx:elif="{{task.status === 'done'}}">
+
+    <!-- mini top bar -->
+    <view class="mj-mini-top">
+      <view class="mj-callsign" bindtap="goBack">← BACK</view>
+      <view class="mj-callsign mj-callsign--soft">STUDY MAG · {{nowDate}}</view>
+    </view>
+
+    <!-- TITLE -->
+    <view style="padding-top: 24rpx;">
+      <view class="mj-banner-skew" style="margin-bottom: 24rpx;">
+        <view class="mj-banner-skew__text">今日連載 · TODAY</view>
+      </view>
+
+      <view class="mj-title-block">
+        <text class="mj-drop-cap">{{firstChar}}</text>
+        <view class="mj-headline">{{restTitle}}</view>
+      </view>
+      <view style="clear: both; height: 8rpx;"/>
+
+      <!-- LEDE -->
+      <block wx:if="{{task.summary}}">
+        <view class="mj-eyebrow-row" style="margin-top: 32rpx;">
+          <view class="mj-eyebrow">导读 / LEDE</view>
+          <view class="mj-eyebrow-rule"/>
+        </view>
+        <view class="mj-body">
+          <text
+            wx:for="{{summarySegments}}"
+            wx:key="index"
+            class="{{item.type === 'highlight' ? 'mj-highlight' : ''}}"
+          >{{item.text}}</text>
+        </view>
+      </block>
+
+      <!-- HOST CHIP + MIN sticker -->
+      <view class="mj-meta-row">
+        <view class="mj-host-chip">
+          <image class="mj-host-face mj-host-face--sm" src="/images/manga/host-a.svg" />
+          <image class="mj-host-face mj-host-face--sm" src="/images/manga/host-b.svg" />
+          <text class="mj-host-chip__name">{{task.hostA || '主持人 A'}} · {{task.hostB || '主持人 B'}}</text>
+        </view>
+        <view wx:if="{{task.estimatedMinutes}}" class="mj-sticker mj-sticker--rotate-neg">{{task.estimatedMinutes}} MIN.</view>
+      </view>
+    </view>
+
+    <!-- PLAYER HERO CARD -->
+    <view class="mj-card mj-card--hero" style="margin-top: 48rpx;">
+      <view class="mj-card-hero__topbar">
+        <view class="mj-on-air">
+          <view class="mj-dot-live"/>
+          ON AIR · EP
+        </view>
+        <view class="mj-callsign mj-callsign--soft">{{nowDate}}</view>
+      </view>
+
+      <!-- Waveform -->
+      <view class="mj-waveform mj-waveform--lg" style="margin-top: 18rpx;">
+        <view
+          wx:for="{{waveformBars}}"
+          wx:key="*this"
+          wx:for-item="h"
+          wx:for-index="i"
+          class="mj-waveform__bar {{i < playedBars ? 'mj-waveform__bar--played' : ''}}"
+          style="height: {{h}}rpx;"
+        />
+      </view>
+
+      <view class="mj-time-row">
+        <text class="mj-time">{{currentTimeLabel}}</text>
+        <text class="mj-time" style="color: var(--mj-ink-soft);">{{durationLabel}}</text>
+      </view>
+
+      <!-- Scrub slider (kept native for accessibility) -->
+      <slider
+        class="mj-scrub"
+        min="0"
+        max="{{duration}}"
+        value="{{currentTime}}"
+        block-size="14"
+        block-color="#D8321F"
+        activeColor="#0B0B0B"
+        backgroundColor="#5A5448"
+        bindchange="onSeek"
+      />
+
+      <!-- Controls -->
+      <view class="mj-player-controls">
+        <view class="mj-player-ctrl" bindtap="seekBy" data-delta="-15" hover-class="mj-player-ctrl-hover">
+          <view class="mj-player-ctrl__btn">
+            <image class="mj-player-ctrl__icon" src="/images/manga/icon-seek-back.svg" />
+          </view>
+          <view class="mj-player-ctrl__label">−15s</view>
+        </view>
+
+        <view class="mj-player-ctrl" bindtap="togglePlay" hover-class="mj-player-ctrl-hover">
+          <view class="mj-player-ctrl__btn mj-player-ctrl__btn--play">
+            <image
+              class="mj-player-ctrl__icon mj-player-ctrl__icon--play"
+              src="{{playing ? '/images/manga/icon-pause.svg' : '/images/manga/icon-play.svg'}}"
+            />
+          </view>
+          <view class="mj-player-ctrl__label mj-player-ctrl__label--main">{{playing ? 'PAUSE' : 'PLAY'}}</view>
+        </view>
+
+        <view class="mj-player-ctrl" bindtap="seekBy" data-delta="30" hover-class="mj-player-ctrl-hover">
+          <view class="mj-player-ctrl__btn">
+            <image class="mj-player-ctrl__icon" src="/images/manga/icon-seek-fwd.svg" />
+          </view>
+          <view class="mj-player-ctrl__label">+30s</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- KEY POINTS -->
+    <view wx:if="{{task.keyPoints && task.keyPoints.length > 0}}" style="margin-top: 64rpx;">
+      <view class="mj-eyebrow-row">
+        <view class="mj-eyebrow-cn">核心观点</view>
+        <view class="mj-eyebrow">/ KEY POINTS · 全 {{keyPointsCount}}</view>
+        <view class="mj-eyebrow-rule"/>
+      </view>
+
+      <view wx:for="{{task.keyPoints}}" wx:key="*this" class="mj-keypoint">
+        <view class="mj-keypoint__num">{{keyPointNums[index]}}</view>
+        <view class="mj-keypoint__text">{{item}}</view>
+      </view>
+    </view>
+
+    <!-- CHAPTERS -->
+    <view wx:if="{{task.sections && task.sections.length > 0}}" style="margin-top: 64rpx;">
+      <view class="mj-eyebrow-row">
+        <view class="mj-eyebrow-cn">章节</view>
+        <view class="mj-eyebrow">/ CHAPTERS · 全 {{chaptersCount}}</view>
+        <view class="mj-eyebrow-rule"/>
+      </view>
+
+      <view class="mj-card mj-card--solid" style="padding: 0; margin-bottom: 0;">
+        <block wx:for="{{task.sections}}" wx:key="heading" wx:for-item="sec" wx:for-index="i">
+          <view
+            class="mj-chapter"
+            bindtap="toggleChapter"
+            data-index="{{i}}"
+            hover-class="mj-list-row-hover"
+          >
+            <view class="mj-chapter__num">CH.{{chapterNums[i]}}</view>
+            <view class="mj-chapter__title">{{sec.heading}}</view>
+            <image
+              class="mj-chapter__chevron {{openChapters[i] ? 'mj-chapter__chevron--open' : ''}}"
+              src="/images/manga/icon-chevron-down.svg"
+            />
+          </view>
+          <view wx:if="{{openChapters[i]}}" class="mj-chapter__body">{{sec.content}}</view>
+        </block>
+      </view>
+    </view>
+
+    <!-- FIN + AI footer -->
+    <view class="mj-fin-divider">
+      <view class="mj-fin-divider__rule"/>
+      <view class="mj-sticker mj-sticker--rotate-neg">FIN. / 完</view>
+      <view class="mj-fin-divider__rule"/>
+    </view>
+    <view class="mj-disclaimer">BY AI · 仅供学习参考 · FOR STUDY ONLY</view>
+  </view>
+</view>

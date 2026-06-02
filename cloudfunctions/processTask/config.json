@@ -1,0 +1,3 @@
+{
+  "comment": "timeout 和 memory 需在 CloudBase 控制台手动配置：timeout=900s, memory=1024MB（需个人版或以上）"
+}

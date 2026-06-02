@@ -1,0 +1,84 @@
+/* ────────────────────────────────────────────────
+   Custom tab bar · Manga Jump
+   2 tabs · 红/黑硬阴影方块 · 激活态偏移
+   ──────────────────────────────────────────────── */
+
+.mj-tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12rpx 32rpx 36rpx;    /* 36rpx 底让位避开 iPhone home indicator */
+  background: #FAF7EE;
+  border-top: 4rpx solid #0B0B0B;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  z-index: 1000;
+}
+
+.mj-tabbar__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+  flex: 1;
+}
+
+.mj-tabbar__block {
+  width: 84rpx;
+  height: 84rpx;
+  background: #FAF7EE;
+  border: 4rpx solid #0B0B0B;
+  box-shadow: 5rpx 5rpx 0 #0B0B0B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.mj-tabbar__icon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.mj-tabbar__label-cn {
+  font-family: 'MJ Heading', 'PingFang SC', sans-serif;
+  font-size: 20rpx;
+  color: #5A5448;
+  letter-spacing: 0.04em;
+  margin-top: 4rpx;
+  line-height: 1.15;
+}
+
+.mj-tabbar__label-en {
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  font-size: 15rpx;
+  color: #5A5448;
+  letter-spacing: 0.16em;
+  line-height: 1;
+}
+
+/* ─── Active state ─── */
+.mj-tabbar__item--active .mj-tabbar__block {
+  background: #D8321F;
+  border-color: #0B0B0B;
+  box-shadow: 5rpx 5rpx 0 #D8321F;
+  transform: translate(-2rpx, -2rpx);
+}
+.mj-tabbar__item--active .mj-tabbar__label-cn {
+  color: #0B0B0B;
+  font-weight: 900;
+}
+.mj-tabbar__item--active .mj-tabbar__label-en {
+  color: #D8321F;
+}
+
+/* ─── Press feedback ─── */
+.mj-tabbar__item-hover .mj-tabbar__block {
+  transform: translate(2rpx, 2rpx);
+  box-shadow: 2rpx 2rpx 0 #0B0B0B;
+}
+.mj-tabbar__item--active.mj-tabbar__item-hover .mj-tabbar__block {
+  box-shadow: 2rpx 2rpx 0 #D8321F;
+}

@@ -1,0 +1,42 @@
+/* ────────────────────────────────────────────────
+   Player page · 仅页面级补丁
+   通用 class 来自 manga-components.wxss
+   ──────────────────────────────────────────────── */
+
+.mj-mini-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 0 16rpx;
+  border-bottom: 3rpx solid var(--mj-rule);
+}
+
+.mj-title-block {
+  margin-top: 28rpx;
+  min-height: 120rpx;
+}
+
+.mj-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 36rpx;
+  flex-wrap: wrap;
+}
+
+.mj-card-hero__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.mj-time-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10rpx;
+  margin-bottom: 18rpx;
+}
+
+.mj-scrub {
+  margin: 0 0 28rpx 0;
+}

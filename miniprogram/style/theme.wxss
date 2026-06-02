@@ -1,0 +1,40 @@
+/* ════════════════════════════════════════════════════════════════════
+   TDesign 兼容层
+   把残留的 t-* 组件（t-collapse、t-textarea）配色映射到 Manga 调色板
+   让没拆掉的 TDesign 组件看起来不刺眼
+   ════════════════════════════════════════════════════════════════════ */
+
+page {
+  /* 品牌主色 → manga ink */
+  --td-brand-color: #0B0B0B;
+  --td-brand-color-light: #F4EFE3;
+  --td-brand-color-1: #FAF7EE;
+
+  /* 背景 */
+  --td-bg-color-page: #F4EFE3;
+  --td-bg-color-container: #FAF7EE;
+  --td-bg-color-component: #FAF7EE;
+
+  /* 文字 */
+  --td-text-color-primary: #0B0B0B;
+  --td-text-color-secondary: #5A5448;
+  --td-text-color-placeholder: #5A5448;
+  --td-text-color-disabled: #5A5448;
+
+  /* 状态色 → 全部 Manga 黄/红 */
+  --td-warning-color: #D8321F;
+  --td-warning-color-1: #F4CC2A;
+  --td-success-color: #0B0B0B;
+  --td-success-color-1: #F4CC2A;
+  --td-error-color: #D8321F;
+  --td-error-color-1: #FAF7EE;
+
+  /* 圆角 → 全 0 */
+  --td-radius-small: 0;
+  --td-radius-default: 0;
+  --td-radius-medium: 0;
+  --td-radius-large: 0;
+  --td-radius-extraLarge: 0;
+  --td-radius-round: 0;
+  --td-radius-circle: 0;
+}

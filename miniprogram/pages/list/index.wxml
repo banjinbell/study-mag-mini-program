@@ -1,0 +1,69 @@
+<view class="mj-page">
+
+  <!-- ─── Masthead ─── -->
+  <view class="mj-masthead">
+    <view class="mj-banner-skew">
+      <view class="mj-banner-skew__text">STUDY MAG · 学習マガジン</view>
+    </view>
+    <view class="mj-masthead__rule"/>
+    <view class="mj-masthead__row">
+      <text class="mj-vol">{{nowVol}}</text>
+      <text class="mj-vol-cn">{{nowMonth}}</text>
+      <text class="mj-vol-issue">{{nowIssue}}</text>
+    </view>
+    <view class="mj-tagline">每日 · 把一篇好文，做成你的双人播客</view>
+  </view>
+
+  <!-- ─── Loading ─── -->
+  <view wx:if="{{loading && tasks.length === 0}}" class="mj-state-zone">
+    <view class="mj-tag mj-tag--processing" style="margin-bottom: 24rpx;">撰稿中 · LOADING</view>
+    <view class="mj-state-zone__sub">读取你的过往刊期…</view>
+  </view>
+
+  <!-- ─── Empty ─── -->
+  <view wx:elif="{{tasks.length === 0}}" class="mj-state-zone">
+    <view class="mj-sticker mj-sticker--rotate-pos" style="margin-bottom: 32rpx;">本期未開始 · NO ISSUE</view>
+    <view class="mj-state-zone__title">还没有播客</view>
+    <view class="mj-state-zone__sub">去「新建」标签页粘一段你最近读到的好文 · 三分钟后你就听到自己定制的双人对谈</view>
+    <view
+      class="mj-cta-primary"
+      hover-class="mj-cta-primary-hover"
+      bindtap="goSubmit"
+      style="margin-top: 48rpx; max-width: 440rpx;"
+    >▮ 投第一稿 ▮</view>
+  </view>
+
+  <!-- ─── List ─── -->
+  <block wx:else>
+    <view class="mj-eyebrow-row" style="margin-top: 16rpx;">
+      <view class="mj-eyebrow-cn">已刊</view>
+      <view class="mj-eyebrow">/ ISSUED · 共 {{totalLabel}}</view>
+      <view class="mj-eyebrow-rule"/>
+    </view>
+
+    <view class="mj-card mj-card--solid" style="padding: 0;">
+      <view
+        wx:for="{{tasks}}"
+        wx:key="taskId"
+        class="mj-list-row"
+        data-task-id="{{item.taskId}}"
+        data-ep-label="{{item.epLabel}}"
+        data-title="{{item.displayTitle}}"
+        bindtap="onTap"
+        bindlongpress="onLongPress"
+        hover-class="mj-list-row-hover"
+      >
+        <view class="mj-list-row__num">{{item.epLabel}}</view>
+        <view class="mj-list-row__title">{{item.displayTitle}}</view>
+        <view class="mj-tag {{item.statusTagClass}}">{{item.statusLabel}}</view>
+      </view>
+    </view>
+
+    <view class="mj-fin-divider">
+      <view class="mj-fin-divider__rule"/>
+      <view class="mj-sticker mj-sticker--rotate-neg">END / 完</view>
+      <view class="mj-fin-divider__rule"/>
+    </view>
+    <view class="mj-disclaimer">下拉刷新 · 长按撤刊 · PULL / LONG-PRESS</view>
+  </block>
+</view>

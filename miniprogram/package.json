@@ -1,0 +1,8 @@
+{
+  "name": "xueban-miniprogram",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "tdesign-miniprogram": "^1.10.0"
+  }
+}

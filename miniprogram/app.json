@@ -1,0 +1,31 @@
+{
+  "pages": [
+    "pages/submit/index",
+    "pages/list/index",
+    "pages/profile/index",
+    "pages/player/index"
+  ],
+  "window": {
+    "backgroundColor": "#F4EFE3",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#F4EFE3",
+    "navigationBarTitleText": "学伴 · 学習マガジン",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#5A5448",
+    "selectedColor": "#0B0B0B",
+    "backgroundColor": "#FAF7EE",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/submit/index",  "text": "新建" },
+      { "pagePath": "pages/list/index",    "text": "档案" },
+      { "pagePath": "pages/profile/index", "text": "我的" }
+    ]
+  },
+  "requiredBackgroundModes": ["audio"],
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

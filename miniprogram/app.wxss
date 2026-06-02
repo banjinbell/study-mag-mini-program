@@ -1,0 +1,50 @@
+/* ════════════════════════════════════════════════════════════════════
+   学伴 · Manga Jump 全局样式入口
+   ════════════════════════════════════════════════════════════════════ */
+
+@import "/style/manga-tokens.wxss";
+@import "/style/manga-components.wxss";
+@import "/style/theme.wxss";  /* TDesign 兼容层（让残留的 t-* 组件配色不刺眼）*/
+
+page {
+  background-color: var(--mj-newsprint);
+  background-image: var(--mj-screentone);
+  background-repeat: repeat;
+  background-size: 16rpx 16rpx;
+  color: var(--mj-ink);
+  font-family: var(--mj-font-body);
+  font-size: 28rpx;
+  line-height: 1.7;
+}
+
+/* 兼容旧 class —— 给未完全迁移的页面留个底 */
+.page {
+  padding: 0 var(--mj-page-x) calc(220rpx + env(safe-area-inset-bottom));
+}
+.page-narrow {
+  padding: 0 var(--mj-page-x) calc(280rpx + env(safe-area-inset-bottom));
+}
+.muted {
+  font-family: var(--mj-font-body);
+  font-size: 26rpx;
+  color: var(--mj-ink-soft);
+}
+.tiny {
+  font-family: var(--mj-font-display);
+  font-size: 20rpx;
+  color: var(--mj-ink-soft);
+  letter-spacing: 0.14em;
+}
+.section {
+  margin-top: 36rpx;
+}
+.section-title {
+  font-family: var(--mj-font-headline);
+  font-weight: 900;
+  font-size: 36rpx;
+  margin-bottom: 20rpx;
+  color: var(--mj-ink);
+  letter-spacing: 0.02em;
+}
+
+button::after { border: none; }

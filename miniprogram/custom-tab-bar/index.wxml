@@ -1,0 +1,20 @@
+<view class="mj-tabbar">
+  <view
+    wx:for="{{list}}"
+    wx:key="pagePath"
+    class="mj-tabbar__item {{selected === index ? 'mj-tabbar__item--active' : ''}}"
+    data-index="{{index}}"
+    bindtap="onSwitch"
+    hover-class="mj-tabbar__item-hover"
+  >
+    <view class="mj-tabbar__block">
+      <image
+        class="mj-tabbar__icon"
+        src="{{selected === index ? item.selectedIconPath : item.iconPath}}"
+        mode="aspectFit"
+      />
+    </view>
+    <view class="mj-tabbar__label-cn">{{item.text}}</view>
+    <view class="mj-tabbar__label-en">{{item.en}}</view>
+  </view>
+</view>

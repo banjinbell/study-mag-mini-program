@@ -1,0 +1,68 @@
+/* ════════════════════════════════════════════════════════════════════
+   Manga Jump · 学習マガジン — Design Tokens
+   规范来源：design-systems/manga-jump-xueban/design.md
+   设计稿基准：393×852 px  ·  1px ≈ 1.91rpx
+   ════════════════════════════════════════════════════════════════════ */
+
+/* 全局 box-sizing — width:100% 的元素 padding/border 一并算进盒，
+   不再因为 padding 撑出父容器（修「开始生成播客」CTA 溢出问题）*/
+view, text, image, button, input, textarea, scroll-view, swiper, swiper-item {
+  box-sizing: border-box;
+}
+
+page {
+  /* ─── Colors ─── */
+  --mj-newsprint:  #F4EFE3;
+  --mj-paper:      #FAF7EE;
+  --mj-ink:        #0B0B0B;
+  --mj-ink-soft:   #5A5448;
+  --mj-red:        #D8321F;
+  --mj-yellow:     #F4CC2A;
+  --mj-blue:       #2A4E8A;
+  --mj-rule:       rgba(11, 11, 11, 0.18);
+  --mj-rule-faint: rgba(11, 11, 11, 0.08);
+  --mj-rule-dashed-color: rgba(11, 11, 11, 0.30);
+
+  /* ─── Shadows (硬偏移，永无 blur) ─── */
+  --mj-shadow-ink:        8rpx 8rpx 0 #0B0B0B;
+  --mj-shadow-ink-sm:     5rpx 5rpx 0 #0B0B0B;
+  --mj-shadow-red:       10rpx 10rpx 0 #D8321F;
+  --mj-shadow-red-sm:     6rpx 6rpx 0 #D8321F;
+
+  /* ─── Borders ─── */
+  --mj-border-frame:        4rpx solid #0B0B0B;
+  --mj-border-frame-heavy:  5rpx solid #0B0B0B;
+  --mj-border-rule:         5rpx solid #0B0B0B;
+  --mj-border-rule-thin:    3rpx solid #0B0B0B;
+
+  /* ─── Spacing (multiples of 4) ─── */
+  --mj-s1:  8rpx;
+  --mj-s2:  16rpx;
+  --mj-s3:  24rpx;
+  --mj-s4:  32rpx;
+  --mj-s5:  40rpx;
+  --mj-s6:  48rpx;
+  --mj-s8:  64rpx;
+  --mj-s12: 92rpx;
+  --mj-page-x: 32rpx;
+  --mj-page-y: 40rpx;
+
+  /* ─── Radii (default = square) ─── */
+  --mj-radius-square: 0;
+  --mj-radius-circle: 50%;
+
+  /* ─── Font families ───────────────────────────────────────────
+     ⚠ Noto SC 900 通过 wx.loadFontFace 绑定到 'MJ Heading' 这个
+       专属 family 名。绝不能让 body 引用 'MJ Heading'，否则
+       body 的 weight 400/700 都会被强制渲染为 900（变粗）。
+     - display / headline → 'MJ Heading'（吃真 900）
+     - body → 系统 PingFang SC，weight 400/700 各自独立工作
+     ─────────────────────────────────────────────────────────── */
+  --mj-font-display:  'Anton', 'Bebas Neue', 'MJ Heading', 'PingFang SC', sans-serif;
+  --mj-font-headline: 'MJ Heading', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --mj-font-body:     'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --mj-font-serif:    'Noto Serif SC', 'Songti SC', 'STSong', serif;
+
+  /* ─── Screentone (4×4 网点 inline data url，平铺) ─── */
+  --mj-screentone: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='4' cy='4' r='1.2' fill='%230B0B0B' opacity='0.08'/%3E%3C/svg%3E");
+}

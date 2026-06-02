@@ -1,0 +1,185 @@
+/* ──────────────────────────────────────────────
+   profile · 約稿单 + 肖像 + 閲読暦
+   ────────────────────────────────────────────── */
+
+/* ─── 表单输入 ─── */
+.prof-input {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: var(--mj-paper);
+  border: 4rpx solid var(--mj-ink);
+  box-shadow: var(--mj-shadow-ink-sm);
+  padding: 0 24rpx;
+  font-family: var(--mj-font-body);
+  font-size: 28rpx;
+  color: var(--mj-ink);
+  margin-bottom: 12rpx;
+}
+.prof-input-placeholder {
+  color: var(--mj-ink-soft);
+}
+
+/* ─── sticker cluster ─── */
+.prof-stickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 12rpx;
+}
+.prof-sticker {
+  display: inline-block;
+  background: var(--mj-paper);
+  border: 3rpx solid var(--mj-ink);
+  box-shadow: var(--mj-shadow-ink-sm);
+  padding: 8rpx 18rpx;
+  font-family: var(--mj-font-body);
+  font-weight: 700;
+  font-size: 24rpx;
+  color: var(--mj-ink);
+  letter-spacing: 0.02em;
+}
+.prof-sticker--on {
+  background: var(--mj-yellow);
+  transform: translate(-1rpx, -1rpx) rotate(-2deg);
+  box-shadow: 4rpx 4rpx 0 var(--mj-ink);
+}
+.prof-sticker--add {
+  background: var(--mj-newsprint);
+  border-style: dashed;
+  color: var(--mj-ink-soft);
+  box-shadow: none;
+}
+
+/* ─── stats row ─── */
+.prof-stats {
+  display: flex;
+  gap: 12rpx;
+  margin: 18rpx 0 24rpx;
+}
+.prof-stat {
+  flex: 1;
+  background: var(--mj-paper);
+  border: 4rpx solid var(--mj-ink);
+  box-shadow: var(--mj-shadow-ink-sm);
+  padding: 18rpx 12rpx;
+  text-align: center;
+}
+.prof-stat--mid {
+  box-shadow: var(--mj-shadow-red-sm);
+}
+.prof-stat__num {
+  display: block;
+  font-family: var(--mj-font-display);
+  font-size: 64rpx;
+  line-height: 1;
+  color: var(--mj-ink);
+  letter-spacing: -1rpx;
+}
+.prof-stat__lab {
+  font-family: var(--mj-font-body);
+  font-size: 20rpx;
+  color: var(--mj-ink-soft);
+  letter-spacing: 0.04em;
+  margin-top: 6rpx;
+}
+
+/* ─── calendar 28 格 ─── */
+.prof-cal {
+  background: var(--mj-paper);
+  border: 4rpx solid var(--mj-ink);
+  box-shadow: var(--mj-shadow-ink-sm);
+  padding: 18rpx 16rpx 14rpx;
+}
+.prof-cal__hdr {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6rpx;
+  margin-bottom: 8rpx;
+}
+.prof-cal__hdr-cell {
+  font-family: var(--mj-font-body);
+  font-weight: 700;
+  font-size: 20rpx;
+  color: var(--mj-ink-soft);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+.prof-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6rpx;
+}
+.prof-cal__cell {
+  aspect-ratio: 1 / 1;
+  border: 2rpx solid var(--mj-ink);
+  box-shadow: 2rpx 2rpx 0 var(--mj-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.prof-cal__day {
+  font-family: var(--mj-font-display);
+  font-size: 18rpx;
+  color: var(--mj-ink-soft);
+  opacity: 0.5;
+}
+.prof-cal__cell--l0 { background: var(--mj-paper); }
+.prof-cal__cell--l1 { background: #FBE89A; }   /* 浅黄 */
+.prof-cal__cell--l2 { background: var(--mj-yellow); }
+.prof-cal__cell--l3 { background: var(--mj-red); }
+.prof-cal__cell--l3 .prof-cal__day { color: var(--mj-paper); opacity: 0.8; }
+.prof-cal__cell--l2 .prof-cal__day,
+.prof-cal__cell--l1 .prof-cal__day { color: var(--mj-ink); opacity: 0.7; }
+
+/* ─── legend ─── */
+.prof-cal__legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  margin-top: 16rpx;
+  font-family: var(--mj-font-display);
+  font-size: 20rpx;
+  color: var(--mj-ink-soft);
+}
+.prof-cal__sw {
+  width: 22rpx;
+  height: 22rpx;
+  border: 1.5rpx solid var(--mj-ink);
+}
+
+/* ─── 整页 ─── */
+.prof-dossier {
+  margin-top: 0;
+}
+.prof-dossier .mj-eyebrow-row:first-child {
+  margin-top: 8rpx;
+}
+
+/* ─── 信息密度 slider ─── */
+.prof-density {
+  margin-bottom: 12rpx;
+  padding: 4rpx 8rpx 0;
+}
+.prof-density__slider {
+  margin: 0 8rpx;
+}
+.prof-density__labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4rpx;
+  padding: 0 4rpx;
+}
+.prof-density__lab {
+  font-family: var(--mj-font-display);
+  font-size: 20rpx;
+  letter-spacing: 0.1em;
+  color: var(--mj-ink-soft);
+  transition: color 0.15s;
+}
+.prof-density__lab--on {
+  color: var(--mj-red);
+  font-weight: 700;
+}

@@ -1,0 +1,173 @@
+<view class="mj-page">
+
+  <!-- ─── Masthead ─── -->
+  <view class="mj-masthead">
+    <view class="mj-banner-skew">
+      <view class="mj-banner-skew__text">STUDY MAG · 学習マガジン</view>
+    </view>
+    <view class="mj-masthead__rule"/>
+    <view class="mj-masthead__row">
+      <text class="mj-vol">NEW</text>
+      <text class="mj-vol-cn">把碎片，变成播客</text>
+    </view>
+    <view class="mj-tagline">把一篇好文 · 做成你的双人播客 · 锁屏可听</view>
+  </view>
+
+  <!-- ─── Mode tabs (text / image / link) ─── -->
+  <view class="mj-eyebrow-row" style="margin-top: 20rpx;">
+    <view class="mj-eyebrow-cn">投稿方式</view>
+    <view class="mj-eyebrow">/ INPUT MODE</view>
+    <view class="mj-eyebrow-rule"/>
+  </view>
+
+  <view class="mj-mode-tabs">
+    <view
+      class="mj-mode-tab {{mode === 'text' ? 'mj-mode-tab--active' : ''}}"
+      data-mode="text"
+      bindtap="onModeTap"
+    >文字 / TXT</view>
+    <view
+      class="mj-mode-tab {{mode === 'image' ? 'mj-mode-tab--active' : ''}}"
+      data-mode="image"
+      bindtap="onModeTap"
+    >图片 / IMG</view>
+    <view
+      class="mj-mode-tab {{mode === 'link' ? 'mj-mode-tab--active' : ''}}"
+      data-mode="link"
+      bindtap="onModeTap"
+    >链接 / URL</view>
+  </view>
+
+  <!-- ─── TEXT mode ─── -->
+  <view wx:if="{{mode === 'text'}}">
+    <textarea
+      class="mj-textarea"
+      placeholder="把那段你想深挖的文字粘到这里…"
+      placeholder-class="mj-textarea-placeholder"
+      value="{{text}}"
+      maxlength="8000"
+      style="height: 360rpx;"
+      bindinput="onTextInput"
+    />
+    <view class="mj-footnote">{{text.length}} / 8000 字</view>
+  </view>
+
+  <!-- ─── IMAGE mode ─── -->
+  <view wx:elif="{{mode === 'image'}}">
+    <view wx:if="{{!imagePath}}" class="mj-upload-grid">
+      <view class="mj-upload-tile" bindtap="chooseFromAlbum" hover-class="mj-upload-tile-hover">
+        <image class="mj-upload-tile__icon" src="/images/manga/icon-album.svg" />
+        <view class="mj-upload-tile__label">从相册 / ALBUM</view>
+      </view>
+      <view class="mj-upload-tile" bindtap="chooseFromCamera" hover-class="mj-upload-tile-hover">
+        <image class="mj-upload-tile__icon" src="/images/manga/icon-camera.svg" />
+        <view class="mj-upload-tile__label">拍一张 / CAM</view>
+      </view>
+    </view>
+    <block wx:else>
+      <view class="mj-image-preview">
+        <image class="mj-image-preview__img" src="{{imagePath}}" mode="widthFix" />
+      </view>
+      <view
+        class="mj-cta-secondary"
+        bindtap="chooseFromAlbum"
+        hover-class="mj-player-ctrl-hover"
+        style="margin-top: 24rpx;"
+      >换张图 / RESELECT</view>
+    </block>
+  </view>
+
+  <!-- ─── LINK mode ─── -->
+  <view wx:elif="{{mode === 'link'}}">
+    <view style="display: flex; align-items: center; gap: 16rpx; margin-bottom: 16rpx;">
+      <image src="/images/manga/icon-link.svg" style="width: 48rpx; height: 48rpx;" />
+      <view class="mj-body-heavy">小红书 / 公众号链接</view>
+    </view>
+    <textarea
+      class="mj-textarea"
+      placeholder="例：http://xhslink.com/xxx 或 https://mp.weixin.qq.com/s/xxx"
+      placeholder-class="mj-textarea-placeholder"
+      value="{{linkText}}"
+      style="height: 240rpx;"
+      bindinput="onLinkInput"
+    />
+    <view class="mj-footnote">小红书仅支持图文笔记 · 公众号支持图文文章 · 视频暂不支持</view>
+  </view>
+
+  <!-- ─── Primary CTA ─── -->
+  <view
+    class="mj-cta-primary {{ctaDisabled ? 'mj-cta-primary--disabled' : ''}}"
+    hover-class="{{ctaDisabled ? '' : 'mj-cta-primary-hover'}}"
+    bindtap="onSubmit"
+    style="margin-top: 56rpx;"
+  >{{submitting ? '撰稿中…' : '▮ 开始生成播客 ▮'}}</view>
+
+  <view class="mj-disclaimer" style="margin-top: 32rpx;">BY AI · 仅供学习参考 · FOR STUDY ONLY</view>
+</view>
+
+<!-- ═══════════════════════════════════════════════════════════
+     投稿完了 · 全屏 manga 反馈层
+     ═══════════════════════════════════════════════════════════ -->
+<view wx:if="{{showSuccessSheet}}" class="mj-success-sheet" catchtap="noop">
+  <view class="mj-success-sheet__plate" catchtap="noop">
+
+    <!-- NEW! sticker pinned to upper-right -->
+    <view class="mj-success-sheet__sticker">
+      <view class="mj-sticker mj-sticker--rotate-pos" style="background:#F4CC2A;">NEW!</view>
+    </view>
+
+    <!-- Red skew chapter banner -->
+    <view class="mj-banner-skew" style="margin-bottom: 18rpx;">
+      <view class="mj-banner-skew__text">投稿完了 · SUBMITTED</view>
+    </view>
+
+    <!-- Drop-cap headline -->
+    <view class="mj-success-sheet__title">
+      <text class="mj-drop-cap" style="font-size: 112rpx;">投</text>
+      <view class="mj-headline">稿成功 ·<br/>开始撰稿</view>
+      <view style="clear: both;"/>
+    </view>
+
+    <!-- Host chip + pending sticker -->
+    <view class="mj-success-sheet__meta">
+      <view class="mj-host-chip">
+        <image class="mj-host-face mj-host-face--sm" src="/images/manga/host-a.svg" />
+        <image class="mj-host-face mj-host-face--sm" src="/images/manga/host-b.svg" />
+        <text class="mj-host-chip__name">小诺 · 阿明</text>
+      </view>
+      <view class="mj-tag mj-tag--processing">撰稿中</view>
+    </view>
+
+    <!-- Placeholder waveform — pulses to imply work in progress -->
+    <view class="mj-waveform" style="margin-top: 28rpx; height: 56rpx;">
+      <view
+        wx:for="{{successWave}}"
+        wx:key="*this"
+        wx:for-item="h"
+        class="mj-waveform__bar mj-success-sheet__bar"
+        style="height: {{h}}rpx; animation-delay: {{index * 30}}ms;"
+      />
+    </view>
+
+    <!-- Lede -->
+    <view class="mj-body" style="margin-top: 28rpx;">两位主持人会把这一篇拆成 <view class="mj-highlight" style="display:inline;">5–9 个核心概念</view>，做成一档 2–3 分钟的双口対談。完成后会推消息提醒。</view>
+
+    <view class="mj-disclaimer" style="text-align: left; margin-top: 18rpx;">TASK · {{lastTaskId}}</view>
+
+    <!-- Dual CTA -->
+    <view class="mj-success-sheet__cta-row">
+      <view
+        class="mj-cta-primary"
+        hover-class="mj-cta-primary-hover"
+        bindtap="goPlayer"
+      >▮ 听首播 ▮</view>
+      <view
+        class="mj-cta-secondary"
+        hover-class="mj-player-ctrl-hover"
+        bindtap="dismissSheet"
+        style="margin-top: 18rpx;"
+      >← 再投一篇 / RESUBMIT</view>
+    </view>
+
+  </view>
+</view>
