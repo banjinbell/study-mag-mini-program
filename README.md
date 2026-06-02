@@ -1,6 +1,6 @@
 # 学伴 · STUDY MAG
 
-> 微信小程序——把公众号 / 小红书的截图或文字喂进来，AI 把它扩展成结构化学习资料，再合成一段双人播客音频，支持锁屏播放。
+> 微信小程序——把各类平台的截图或文字喂进来，AI 把它扩展成结构化学习资料，再合成一段双人播客音频，支持锁屏播放。
 
 🔗 **在线视觉 Demo（GitHub Pages）：** https://banjinbell.github.io/hearly-mini-program/
 
