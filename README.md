@@ -2,7 +2,7 @@
 
 > 微信小程序——把各类平台的截图或文字喂进来，AI 把它扩展成结构化学习资料，再合成一段双人播客音频，支持锁屏播放。
 
-🔗 **在线视觉 Demo（GitHub Pages）：** https://banjinbell.github.io/hearly-mini-program/
+🔗 **在线视觉 Demo（GitHub Pages）：** https://banjinbell.github.io/study-mag-mini-program/
 
 > 注：在线 Demo 只是首屏设计稿的 1:1 静态预览，真正的小程序需要在微信里运行。要体验完整功能请按下方"自部署指南"自行跑一份。
 
@@ -76,8 +76,8 @@ docs/                     设计稿 / 迁移文档 / 在线 Demo
 ### 2. 克隆并填本地配置
 
 ```bash
-git clone https://github.com/banjinbell/hearly-mini-program.git
-cd hearly-mini-program
+git clone https://github.com/banjinbell/study-mag-mini-program.git
+cd study-mag-mini-program
 
 # 微信小程序工程配置
 cp project.config.example.json project.config.json
